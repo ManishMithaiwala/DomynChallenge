@@ -21,6 +21,7 @@ Usage:
 
 import argparse
 import json
+import logging
 import re
 import sqlite3
 import sys
@@ -135,6 +136,9 @@ def _single_value_from_rows(rows) -> str:
 def _run_agent_with_retry(question: str, conn, verbose: bool,
                           max_retries: int = 3, backoff: float = 5.0) -> str:
     """Run the agent, retrying on 503 rate-limit errors with exponential backoff."""
+    # Suppress agent logging so the evaluator output stays clean
+    logging.getLogger("portfolio_agent").setLevel(logging.CRITICAL)
+
     for attempt in range(1, max_retries + 1):
         answer = run_agent(question, conn, verbose=verbose)
         if "503" not in answer and "UNAVAILABLE" not in answer:
@@ -235,9 +239,6 @@ def evaluate(ground_truth_path: str, db_path: str, data_dir: str, verbose: bool)
         except Exception as exc:
             agent_answer = f"AGENT ERROR: {exc}"
 
-        if verbose:
-            print(f"         Answer: {agent_answer[:200]}")
-
         # --- Check match ---
         if qtype == "text2sql":
             matched, detail = check_sql_match(
@@ -309,7 +310,8 @@ def main():
     parser.add_argument("--ground-truth", default=GROUND_TRUTH_PATH)
     parser.add_argument("--db", default=DB_PATH)
     parser.add_argument("--data-dir", default=DATA_DIR)
-    parser.add_argument("--verbose", "-v", action="store_true")
+    parser.add_argument("--verbose", "-v", action="store_true",
+                        help="Enable debug logging (tool inputs, raw outputs, Gemini internals)")
     args = parser.parse_args()
 
     evaluate(args.ground_truth, args.db, args.data_dir, args.verbose)

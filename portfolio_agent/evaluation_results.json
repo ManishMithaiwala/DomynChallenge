@@ -20,7 +20,7 @@
       "question": "What are the names of all active portfolios?",
       "passed": true,
       "detail": "expected 10 items in answer",
-      "agent_answer": "The active portfolios are:\n* Growth Equity Fund\n* Conservative Income Fund\n* Tech Innovation Fund\n* Balanced Portfolio\n* ESG Sustainable Fund\n* Small Cap Value Fund\n* International Equity Fund\n* Fixed Income Plus\n* Dividend Aristocrats Fund\n* Emerging Markets Fund"
+      "agent_answer": "The active portfolios are:\n\n* Growth Equity Fund\n* Conservative Income Fund\n* Tech Innovation Fund\n* Balanced Portfolio\n* ESG Sustainable Fund\n* Small Cap Value Fund\n* International Equity Fund\n* Fixed Income Plus\n* Dividend Aristocrats Fund\n* Emerging Markets Fund"
     },
     {
       "id": 3,
@@ -47,7 +47,7 @@
       "question": "Show me the top 5 holdings by cost basis in the Growth Equity Fund",
       "passed": true,
       "detail": "expected 5 rows with label values in answer",
-      "agent_answer": "OK. The top 5 holdings in the Growth Equity Fund by cost basis are:\n\n1.  **Apple Inc.**: $438,000.00\n2.  **Amazon.com Inc.**: $320,000.00\n3.  **Microsoft Corporation**: $304,400.00\n4.  **NVIDIA Corporation**: $288,040.00\n5.  **Salesforce Inc.**: $185,400.00"
+      "agent_answer": "The top 5 holdings by cost basis in the **Growth Equity Fund** are:\n\n1. **Apple Inc.**: $438,000.00\n2. **Amazon.com Inc.**: $320,000.00\n3. **Microsoft Corporation**: $304,400.00\n4. **NVIDIA Corporation**: $288,040.00\n5. **Salesforce Inc.**: $185,400.00"
     },
     {
       "id": 6,
@@ -56,7 +56,7 @@
       "question": "What is the average current price of securities in each sector?",
       "passed": true,
       "detail": "expected 7 rows with label values in answer",
-      "agent_answer": "The average current price of securities in each sector is as follows:\n\n*   **Automotive:** $248.50\n*   **Consumer Discretionary:** $3,380.00\n*   **Consumer Staples:** $173.86\n*   **Energy:** $128.58\n*   **Financials:** $201.21\n*   **Healthcare:** $285.17\n*   **Technology:** $719.25"
+      "agent_answer": "The average current price of securities in each sector is as follows:\n\n| Sector | Average Current Price |\n| :--- | :--- |\n| Automotive | $248.50 |\n| Consumer Discretionary | $3,380.00 |\n| Consumer Staples | $173.86 |\n| Energy | $128.58 |\n| Financials | $201.21 |\n| Healthcare | $285.17 |\n| Technology | $719.25 |"
     },
     {
       "id": 7,
@@ -65,7 +65,7 @@
       "question": "For each portfolio, show the total value of Technology sector holdings and what percentage it represents of the total portfolio value",
       "passed": true,
       "detail": "expected 8 rows with label values in answer",
-      "agent_answer": "Here is the breakdown of Technology sector holdings for each portfolio:\n\n| Portfolio Name | Technology Value | Percentage of Total Portfolio |\n| :--- | :--- | :--- |\n| **Tech Innovation Fund** | $1,565,292.50 | 100.00% |\n| **Growth Equity Fund** | $1,866,148.00 | 84.67% |\n| **Total International Index Fund** | $1,427,086.00 | 62.55% |\n| **Balanced Portfolio** | $388,704.00 | 50.33% |\n| **International Equity Fund** | $346,888.00 | 47.20% |\n| **Total Stock Market Index Fund** | $3,093,520.00 | 46.71% |\n| **Emerging Markets Fund** | $339,095.00 | 32.45% |\n| **ESG Sustainable Fund** | $272,978.00 | 27.10% |\n| **Conservative Income Fund** | $0.00 | 0.00% |\n| **Small Cap Value Fund** | $0.00 | 0.00% |\n| **Dividend Aristocrats Fund** | $0.00 | 0.00% |"
+      "agent_answer": "Here are the Technology sector holdings and their percentage of total value for each portfolio:\n\n| Portfolio Name | Technology Value | Technology Percentage |\n| :--- | :--- | :--- |\n| **Total Stock Market Index Fund** | $3,093,520.00 | 6.87% |\n| **Growth Equity Fund** | $1,866,148.00 | 7.46% |\n| **Tech Innovation Fund** | $1,565,292.50 | 4.89% |\n| **Total International Index Fund** | $1,427,086.00 | 5.71% |\n| **Balanced Portfolio** | $388,704.00 | 1.77% |\n| **International Equity Fund** | $346,888.00 | 1.24% |\n| **Emerging Markets Fund** | $339,095.00 | 2.12% |\n| **ESG Sustainable Fund** | $272,978.00 | 1.82% |\n| **Conservative Income Fund** | $0.00 | 0.00% |\n| **Dividend Aristocrats Fund** | $0.00 | 0.00% |\n| **Fixed Income Plus** | $0.00 | 0.00% |\n| **Small Cap Value Fund** | $0.00 | 0.00% |\n| **Total Bond Market Index Fund** | $0.00 | 0.00% |"
     },
     {
       "id": 8,
@@ -74,7 +74,7 @@
       "question": "Find portfolios that have holdings in more than 5 different sectors and show their diversification metrics",
       "passed": true,
       "detail": "expected 1 rows with label values in answer",
-      "agent_answer": "The following portfolio has holdings in more than 5 different sectors:\n\n| Portfolio Name | Number of Sectors | Total Holdings |\n| :--- | :--- | :--- |\n| **Total Stock Market Index Fund** | 6 | 12 |"
+      "agent_answer": "The following portfolio has holdings in more than 5 different sectors:\n\n*   **Portfolio Name:** Total Stock Market Index Fund\n*   **Sector Count:** 6\n*   **Total Holdings:** 12\n*   **Diversification Ratio:** 0.50"
     },
     {
       "id": 9,
@@ -83,7 +83,7 @@
       "question": "What are the sector exposures for the Tech Innovation Fund?",
       "passed": true,
       "detail": "1/1 sectors found in answer",
-      "agent_answer": "The Tech Innovation Fund's sector exposure is entirely concentrated in the Technology sector, representing 100% of its equity holdings ($1,565,292.50)."
+      "agent_answer": "The sector exposure for the **Tech Innovation Fund** is as follows:\n\n- **Technology**: $1,565,292.50 (100.00%)\n\nThe portfolio's equity holdings are entirely concentrated in the Technology sector."
     },
     {
       "id": 10,

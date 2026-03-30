@@ -165,12 +165,52 @@ python evaluator.py
 # Results printed to console + saved to evaluation_results.json
 ```
 
+## Logging
+
+The agent uses Python's standard `logging` module. Two levels are available:
+
+**INFO** (default) — shows the key steps for every question:
+```
+[INFO] Received question: How many portfolios do we have?
+[INFO] Sending question to Gemini (gemini-flash-latest) to select a tool...
+[INFO] Gemini selected tool: 'sql_query'
+[INFO] Running SQL tool for question: How many portfolios do we have?
+[INFO] Tool completed. Sending result back to Gemini...
+[INFO] Agent finished. Returning answer to user.
+```
+
+**DEBUG** — adds raw tool inputs, outputs, and Gemini internals. Enable with `--verbose`:
+```bash
+python agent.py --verbose -q "How many portfolios do we have?"
+python evaluator.py --verbose
+```
+
+Additional debug output:
+```
+[DEBUG] Agentic loop step 1: calling Gemini...
+[DEBUG] Gemini finish_reason: STOP
+[DEBUG] Tool arguments: {'question': 'How many portfolios do we have?'}
+[DEBUG] SQL tool result: 13
+[DEBUG] Final answer: There are 13 portfolios in total.
+```
+
+The evaluator logs `PASS` or `FAIL` per question with the match detail, in addition to printing the summary table to the console.
+
 ## How It Works
 
 ### Tool 1 - SQL Query Tool (`tools/sql_tool.py`)
-Sends the user's question + the full DB schema to Gemini (model configured in `config.py`),
-which returns a JSON object `{"sql": "..."}`. The query runs locally against
-SQLite and results are formatted into a human-readable table.
+Sends the user's question and the full DB schema to Gemini (model configured in `config.py`),
+which returns a JSON object `{"sql": "..."}`. Before executing, the query passes through
+four validation checks:
+
+1. **Extract** - strips markdown fences or JSON wrappers from the model response.
+2. **Statement check** - rejects anything that does not start with `SELECT` or `WITH`.
+3. **Forbidden keyword check** - blocks `INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER`, `CREATE`, and other DDL/write statements.
+4. **Table check** - rejects queries that do not reference at least one known table from the schema.
+5. **Dry-run** - runs `EXPLAIN <sql>` against SQLite to catch syntax errors without touching any data.
+
+Only queries that pass all checks are executed. The SQL generation prompt explicitly instructs
+Gemini to use only columns and tables from the schema and never invent metric names or aliases.
 
 ### Tool 2 - Exposure Calculator (`tools/exposure_tool.py`)
 Pure Python, no LLM needed. Fetches all **equity** holdings for the portfolio

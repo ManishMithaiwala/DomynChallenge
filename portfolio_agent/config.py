@@ -10,8 +10,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # API
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-GEMINI_MODEL   = "gemini-flash-latest"
+GEMINI_API_KEY    = os.environ.get("GEMINI_API_KEY")
+GEMINI_MODEL      = "gemini-flash-latest"
+GEMINI_MAX_RETRIES = 5      # number of retries on 503 errors
+GEMINI_RETRY_BACKOFF = 10.0  # base wait in seconds (multiplied by attempt number)
 
 # Database
 DB_PATH  = "portfolio.db"
